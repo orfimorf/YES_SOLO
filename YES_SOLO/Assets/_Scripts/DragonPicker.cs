@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
+using TMPro;
 
 public class DragonPicker : MonoBehaviour
 {
+    private void OnEnable() => YandexGame.GetDataEvent += GetLoadSave;
+
+    private void OnDisable() => YandexGame.GetDataEvent -= GetLoadSave;
+
     public GameObject energyShieldPrefab;
 
     public int numEnergyShield = 3;
@@ -15,9 +21,17 @@ public class DragonPicker : MonoBehaviour
 
     public List<GameObject> shieldList;
 
+    public TextMeshProUGUI scoreGT;
+
     void Start()
     {
+        if (YandexGame.SDKEnabled == true)
+        {
+            GetLoadSave();
+        }
         shieldList = new List<GameObject>();
+
+
 
         for (int i = 1; i <= numEnergyShield; i++)
         {
@@ -47,7 +61,21 @@ public class DragonPicker : MonoBehaviour
 
         if (shieldList.Count == 0)
         {
+            GameObject scoreGO = GameObject.Find("Score");
+            scoreGT = scoreGO.GetComponent<TextMeshProUGUI>();
+            UserSave(int.Parse(scoreGT.text));
             SceneManager.LoadScene("_0Scene");
+            GetLoadSave();
         }
+    }
+    public void GetLoadSave() 
+    {
+        Debug.Log( YandexGame.savesData.score);
+    }
+
+    public void UserSave(int curScore)
+    {
+        YandexGame.savesData.score = curScore;
+        YandexGame.SaveProgress();
     }
 }
