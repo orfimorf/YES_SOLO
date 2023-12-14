@@ -41,6 +41,12 @@ public class DragonPicker : MonoBehaviour
             tShieldGo.transform.localScale = new Vector3(1 * i, 1 * i, 1 * i);
             shieldList.Add(tShieldGo);  
         }
+
+       
+        GameObject plName = GameObject.Find("PLayerName");
+        playerName = plName.GetComponent<TextMeshProUGUI>();
+        playerName.text = YandexGame.playerName;
+
     }
 
     void Update()
@@ -65,9 +71,13 @@ public class DragonPicker : MonoBehaviour
             GameObject scoreGO = GameObject.Find("Score");
             scoreGT = scoreGO.GetComponent<TextMeshProUGUI>();
             UserSave(int.Parse(scoreGT.text));
+            //string[] achivList;
+            //achivList = YandexGame.savesData.achivse;
+            //achivList[0] = "Береги щиты!";
+            //UserSave(achivList);
             string[] achivList;
-            achivList = YandexGame.savesData.achivse;
-            achivList[0] = "Береги щиты!";
+            achivList = new string[10];
+            achivList[0] = "Береги щиты";
             UserSave(achivList);
             YandexGame.NewLeaderboardScores("TOPPlayerScore",int.Parse(scoreGT.text));
             SceneManager.LoadScene("_0Scene");
@@ -77,9 +87,8 @@ public class DragonPicker : MonoBehaviour
     public void GetLoadSave() 
     {
         Debug.Log( YandexGame.savesData.score);
-        GameObject plName = GameObject.Find("PLayerName");
-        playerName = plName.GetComponent<TextMeshProUGUI>();
-        playerName.text = YandexGame.playerName;
+
+
     }
 
     public void UserSave(int curScore)
