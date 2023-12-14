@@ -7,6 +7,7 @@ public class EnergyShield : MonoBehaviour
 {
 
     public TextMeshProUGUI scoreGT;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -28,6 +29,8 @@ public class EnergyShield : MonoBehaviour
     private void OnCollisionEnter(Collision coll)
     {
         GameObject Collided = coll.gameObject;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
         if ( Collided.tag == "Dragon Egg")
         {
             Destroy(Collided);
