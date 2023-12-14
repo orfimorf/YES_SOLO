@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using YG;
 
@@ -8,6 +9,9 @@ public class CheackConnectYG : MonoBehaviour
     private void OnEnable() => YandexGame.GetDataEvent += CheakSDK;
 
     private void OnDisable() => YandexGame.GetDataEvent -= CheakSDK;
+    
+    
+    private TextMeshProUGUI scoreBest;
 
     void Start()
     {
@@ -30,5 +34,9 @@ public class CheackConnectYG : MonoBehaviour
             Debug.Log("401");
             YandexGame.AuthDialog();
         }
+        GameObject scoreGO = GameObject.Find("BestScore");
+        scoreBest = scoreGO.GetComponent<TextMeshProUGUI>();
+        scoreBest.text = "Best Score: " + YandexGame.savesData.beastScore.ToString();
+
     }
 }

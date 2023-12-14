@@ -21,7 +21,7 @@ public class DragonPicker : MonoBehaviour
 
     public List<GameObject> shieldList;
 
-    public TextMeshProUGUI scoreGT;
+    public TextMeshProUGUI scoreGT, playerName;
 
     void Start()
     {
@@ -71,11 +71,15 @@ public class DragonPicker : MonoBehaviour
     public void GetLoadSave() 
     {
         Debug.Log( YandexGame.savesData.score);
+        GameObject plName = GameObject.Find("PLayerName");
+        playerName = plName.GetComponent<TextMeshProUGUI>();
+        playerName.text = YandexGame.playerName;
     }
 
     public void UserSave(int curScore)
     {
         YandexGame.savesData.score = curScore;
+        if (curScore >  YandexGame.savesData.beastScore) YandexGame.savesData.beastScore = curScore;   
         YandexGame.SaveProgress();
     }
 }
