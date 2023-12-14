@@ -14,6 +14,7 @@ namespace YG
         // Можно удалить этот код, но тогда удалите и демо (папка Example)
         public int score;
         public int beastScore = 0;
+        public string[] achivse;
 
     }
 }

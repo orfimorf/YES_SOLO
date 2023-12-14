@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
 using TMPro;
+using UnityEngine.SocialPlatforms;
 
 public class DragonPicker : MonoBehaviour
 {
@@ -64,6 +65,10 @@ public class DragonPicker : MonoBehaviour
             GameObject scoreGO = GameObject.Find("Score");
             scoreGT = scoreGO.GetComponent<TextMeshProUGUI>();
             UserSave(int.Parse(scoreGT.text));
+            string[] achivList;
+            achivList = YandexGame.savesData.achivse;
+            achivList[0] = "Береги щиты!";
+            UserSave(achivList);
             YandexGame.NewLeaderboardScores("TOPPlayerScore",int.Parse(scoreGT.text));
             SceneManager.LoadScene("_0Scene");
             GetLoadSave();
@@ -81,6 +86,12 @@ public class DragonPicker : MonoBehaviour
     {
         YandexGame.savesData.score = curScore;
         if (curScore >  YandexGame.savesData.beastScore) YandexGame.savesData.beastScore = curScore;   
+        YandexGame.SaveProgress();
+    }
+
+    public void UserSave(string[] achivList)
+    {
+        YandexGame.savesData.achivse = achivList;
         YandexGame.SaveProgress();
     }
 }

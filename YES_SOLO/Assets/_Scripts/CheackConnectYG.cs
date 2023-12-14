@@ -38,5 +38,16 @@ public class CheackConnectYG : MonoBehaviour
         scoreBest = scoreGO.GetComponent<TextMeshProUGUI>();
         scoreBest.text = "Best Score: " + YandexGame.savesData.beastScore.ToString();
 
+        if (!GameObject.Find("Achivs") && YandexGame.savesData.achivse[0] == null)
+        {
+
+        }
+        else
+        {
+            foreach(string value in YandexGame.savesData.achivse)
+            {
+                GameObject.Find("Achivs").GetComponent<TextMeshProUGUI>().text += value+"\n";
+            }
+        }
     }
 }
